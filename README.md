@@ -1,1 +1,1 @@
-basic cv project made with react for front-end development course
+This is a basic CV project made with React for a front-end development course. 
