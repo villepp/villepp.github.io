@@ -1,0 +1,49 @@
+{
+    "imageUrl": "ProfilePic",
+    "bio": "Hi, I'm Ville Pitkänen from Vaasa, Finland. I'm interested in computers and programming and currently studying computer science. I'm a calm and responsible person who learns fast and works well with others. When I'm not studying, I'm usually at the gym, gaming or coding. My GPA is 4.58 as of January 2024. I speak Finnish and English fluently, and I can get by in Swedish too. What I really like about programming is figuring out how to fix real-life problems and making things that people enjoy using. Mandatory military service I completed in 2019.",
+    "quickFacts": {
+        "Name": "Ville Pitkänen",
+        "Age": "24",
+        "Education": "Bachelor of Engineering, Information Technology (2nd year)",
+        "Hobbies": "Gaming, Coding, Gym, My cat",
+        "Languages": "Finnish, English, Swedish, (Duolingo Spanish), Java, C, TypeScript",
+        "Links": {
+            "LinkedIn": "https://www.linkedin.com/in/ville-pitk%C3%A4nen-10456719b/",
+            "GitHub": "https://github.com/villepp"
+        },
+        "E-mail": "ville777@proton.me"
+    },
+    "skills": [
+        {
+            "name": "Programming",
+            "rating": 5,
+            "projects": [
+                "C-programming | Grade: 5",
+                "Object-oriented programming | Grade: 5",
+                "Introduction to programming | Grade: 5",
+                "Software development | Grade 5",
+                "My projects you can find on my GitHub (see Quick Info)"
+            ]
+        },
+        {
+            "name": "Embedded systems",
+            "rating": 4,
+            "projects": [
+                "I've completed courses on Embedded systems basics, Electronics and Digital technologies with good grades.",
+                "In my free time I have done projecs with my Arduino and Raspberry Pi."
+            ]
+        },
+        {
+            "name": "Information networks",
+            "rating": 4,
+            "projects": [
+                "Local networks | Grade: 5",
+                "CCNA certification"
+            ]
+        }
+    ],
+    "workMerits": {
+        "Vaasa City Library": "Years 2023, 2022 and 2020 I was working a summer job in the Vaasa City Library. My tasks were mainly customer service, using the library database and shelving/organizing the books.",
+        "Aksoastra Oy": "Years 2018 and 2017 I worked a summer job in a wholesale company. Work tasks were packaging products, loading and some bookkeeping."
+    }
+}

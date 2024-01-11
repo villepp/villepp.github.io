@@ -1,0 +1,30 @@
+.interactive-element {
+  cursor: pointer;
+  color: #000000;
+  text-decoration: none;
+}
+
+.interactive-stars {
+  cursor: pointer;
+}
+.stars-container {
+  display: inline-block;
+  cursor: pointer;
+}
+/*
+.stars-container:hover {
+  transform: scale(1.1);
+}
+*/
+
+.filled-star {
+  color: #f0c605;
+}
+
+.hollow-star {
+  color: #000000;
+}
+
+.skill-section {
+  margin-top: 15px;
+}
