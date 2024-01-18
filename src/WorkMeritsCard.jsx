@@ -6,12 +6,17 @@ const WorkMeritsCard = ({ merits }) => {
     <Card>
       <Card.Body>
         <Card.Title>Work Experience</Card.Title>
-        {Object.entries(merits).map(([key, value], index) => (
-          <div key={index}>
-            <strong>{key}</strong>
-            <p>{value}</p>
-          </div>
-        ))}
+        {Object.entries(merits).map(([key, value], index) => {
+          const [years, description] = value.split(' | ');
+
+          return (
+            <div key={index}>
+              <strong>{key}</strong>
+              <div>{years}</div>
+              <p>{description}</p>
+            </div>
+          );
+        })}
       </Card.Body>
     </Card>
   );
