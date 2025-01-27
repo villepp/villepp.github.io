@@ -1,69 +1,66 @@
 import React, { useState } from "react";
-import { Card } from "react-bootstrap";
-import "./SkillsCard.css";
+import { Card, Badge, Collapse } from "react-bootstrap";
 
-function SkillsCard({ skills }) {
-  const [visibleProjects, setVisibleProjects] = useState({});
+const SkillsCard = ({ skills }) => {
+  const [expandedSkill, setExpandedSkill] = useState(null);
 
-  const handleToggleProjects = (skillName) => {
-    setVisibleProjects({
-      ...visibleProjects,
-      [skillName]: !visibleProjects[skillName],
-    });
+  const toggleSkill = (skillName) => {
+    setExpandedSkill(expandedSkill === skillName ? null : skillName);
   };
 
-  const filledStar = "⭐";
-  const hollowStar = "☆";
-  const downArrow = "▼";
-  const upArrow = "▲";
+  const renderStars = (rating) => {
+    return "★".repeat(rating) + "☆".repeat(5 - rating);
+  };
 
   return (
-    <Card>
+    <Card className="h-100">
       <Card.Body>
-        <Card.Title>Skills</Card.Title>
-        {skills.map((skill, index) => {
-          const starsDisplay = [];
-          for (let i = 0; i < 5; i++) {
-            starsDisplay.push(
-              <span
-                key={i}
-                className="interactive-stars"
-                onClick={() => handleToggleProjects(skill.name)}
-              >
-                {i < skill.rating ? filledStar : hollowStar}
-              </span>
-            );
-          }
-
-          const arrow = visibleProjects[skill.name] ? upArrow : downArrow;
-
-          return (
-            <div key={index} className="skill-section">
-              <Card.Subtitle
-                className="interactive-element"
-                onClick={() => handleToggleProjects(skill.name)}
-              >
-                {skill.name} <span className="arrow-icon">{arrow}</span>
-              </Card.Subtitle>
-              <div
-                className="stars-container"
-                onClick={() => handleToggleProjects(skill.name)}
-              >
-                {starsDisplay}
-              </div>
-              {visibleProjects[skill.name] && skill.projects && (
-                <ul>
-                  {skill.projects.map((project, i) => (
-                    <li key={i}>{project}</li>
-                  ))}
-                </ul>
-              )}
+        <Card.Title className="mb-4">Technical Skills</Card.Title>
+        {skills.map((skill, index) => (
+          <div key={index} className="mb-4">
+            <div 
+              className="d-flex justify-content-between align-items-center mb-2 cursor-pointer"
+              onClick={() => toggleSkill(skill.name)}
+              style={{ cursor: 'pointer' }}
+            >
+              <h5 className="mb-0">{skill.name}</h5>
+              <span className="text-warning">{renderStars(skill.rating)}</span>
             </div>
-          );
-        })}
+            
+            <div className="mb-2">
+              {skill.technologies.map((tech, idx) => (
+                <Badge key={idx} bg="secondary" className="me-2 mb-2">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+
+            <Collapse in={expandedSkill === skill.name}>
+              <div>
+                {skill.achievements.map((achievement, idx) => (
+                  <div key={idx} className="mb-2">
+                    <div className="d-flex justify-content-between">
+                      <span>{achievement.title}</span>
+                      {achievement.grade && (
+                        <Badge bg="success">Grade: {achievement.grade}</Badge>
+                      )}
+                      {achievement.date && (
+                        <Badge bg="info">{achievement.date}</Badge>
+                      )}
+                    </div>
+                    {achievement.description && (
+                      <small className="text-muted">{achievement.description}</small>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </Collapse>
+            {index < skills.length - 1 && <hr />}
+          </div>
+        ))}
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default SkillsCard;

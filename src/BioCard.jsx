@@ -3,10 +3,10 @@ import { Card } from "react-bootstrap";
 
 const BioCard = ({ bio }) => {
   return (
-    <Card className="h-100 d-flex flex-column">
-      <Card.Body className="d-flex flex-column">
-        <Card.Title>Bio</Card.Title>
-        <Card.Text className="flex-grow-1">{bio}</Card.Text>
+    <Card className="h-100">
+      <Card.Body className="compact-card-body">
+        <Card.Title className="mb-3">About Me</Card.Title>
+        <Card.Text className="bio-text">{bio}</Card.Text>
       </Card.Body>
     </Card>
   );
