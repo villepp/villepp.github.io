@@ -193,7 +193,6 @@ body, html {
 
 /* Mobile Styles */
 @media (max-width: 768px) {
-  /* Main container adjustments */
   .app {
     display: flex;
     flex-direction: column;
@@ -220,7 +219,6 @@ body, html {
     margin-bottom: 2rem;
   }
 
-  /* Contact links - horizontal row BELOW text */
   .contact-links {
     order: 2;
     position: relative;
@@ -244,13 +242,11 @@ body, html {
   }
 
 @media (max-width: 768px) and (pointer: fine) {
-  /* Only show cursor for devices that actually use one (like tablets with stylus) */
   .cursor {
     display: block;
   }
 }
 }
-/* Add to your existing CSS */
 .score-display {
   position: fixed;
   top: 20px;
@@ -264,7 +260,6 @@ body, html {
   font-weight: 500;
 }
 
-/* Mobile version */
 @media (max-width: 768px) {
   .score-display {
     font-size: 1.2rem;
