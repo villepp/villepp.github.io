@@ -13,7 +13,7 @@ function App() {
   const canvasRef = useRef(null);
   const animationFrameRef = useRef(null);
   const gameIntervalRef = useRef(null);
-  const lastSpawnTimeRef = useRef(0); // Added missing ref
+  const lastSpawnTimeRef = useRef(0); 
   
   const colors = useMemo(() => ['#ff66ab', '#66ccff', '#ff6666', '#88b300'], []);
   const spawnInterval = 2000;
