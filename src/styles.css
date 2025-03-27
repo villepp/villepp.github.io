@@ -1,249 +1,215 @@
-/* styles.css */
-
-/* CSS Variables */
-:root {
-  --primary-color: #4b8adc;
-  --primary-color-light: #4b8adc91;
-  --shadow-color: rgba(0, 103, 238, 0.253);
-  --background-color: #f8f9fa;
-  --border-color: #dee2e6;
-  --text-primary: #212529;
-  --text-secondary: #6c757d;
-  --badge-language: #00bcd4;
-  --badge-technology: #757575;
-  --badge-year: #4b8adc;
-  --badge-seasonal: #2196f3;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Base Styles */
-body {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+body, html {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  height: 100%;
+  overflow: hidden;
+  color: #ffffff;
+  background-color: #121620;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background-color);
+  cursor: none;
 }
 
-/* Animated Background */
-.animated-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  transition: background 0.3s ease;
-}
-
-/* Layout */
-.row-equal-height {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.custom-card {
-  margin-bottom: 20px;
-  display: flex;
-  flex-grow: 1;
-}
-
-/* Card Styles */
-.card {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  transition: transform 0.2s ease;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.card:hover {
-  transform: scale(1.03);
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  border: 1px solid var(--primary-color-light);
-  border-radius: 5px;
-  box-shadow: 0 4px 6px 0 var(--shadow-color);
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.compact-card-body {
-  padding: 1.25rem;
-}
-
-/* Header Section */
-.header-section {
+.app {
   position: relative;
-  z-index: 1;
-  padding: 2.5rem 0 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-  background: rgba(75, 138, 220, 0.03);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: background 1s ease;
 }
 
-.profile-title {
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.5px;
-}
-
-.profile-subtitle {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  font-weight: 400;
-}
-
-.animated-background {
-  position: fixed;
+.background-dots {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
-  transition: background 0.5s ease;
+  z-index: 1;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 30% 80%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 50% 10%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 20% 40%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 60% 50%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 90% 90%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 15% 85%, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle at 40% 15%, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 100% 100%;
 }
 
-.card {
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(75, 138, 220, 0.15);
-  box-shadow: 0 2px 4px rgba(75, 138, 220, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.game-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: auto;
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(75, 138, 220, 0.1);
-}
-/* Bio Section */
-.bio-text {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 0;
+.center-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  pointer-events: none;
 }
 
-/* Skills Section */
-.skill-section {
-  margin-top: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid var(--border-color);
+.name {
+  font-size: 4rem;
+  font-weight: 200;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
+  opacity: 0;
 }
 
-.skill-section:last-child {
-  border-bottom: none;
+.name.revealed {
+  opacity: 1;
+  animation: revealText 1s forwards;
 }
 
-.filled-star {
-  color: #f0c605;
+.first-name {
+  color: #ffffff;
 }
 
-.hollow-star {
-  color: var(--text-secondary);
+.last-name {
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.interactive-element {
-  cursor: pointer;
-  color: var(--text-primary);
+.title {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+  opacity: 0;
+}
+
+.title.revealed {
+  opacity: 1;
+  animation: revealText 1s forwards;
+}
+
+@keyframes revealText {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.contact-links {
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  z-index: 10;
+  width: 100%;
+  pointer-events: none;
+}
+
+.contact-link {
+  font-size: 0.85rem;
+  color: #ffffff;
   text-decoration: none;
-}
-
-/* Badge Styles */
-.badge {
-  font-size: 0.8rem;
-  font-weight: normal;
-  padding: 0.4em 0.8em;
-  border-radius: 4px;
-  margin-right: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-.badge.language-badge {
-  background-color: var(--badge-language);
-}
-
-.badge.technology-badge {
-  background-color: var(--badge-technology);
-}
-
-.badge.year-badge {
-  background-color: var(--badge-year);
-}
-
-.badge.seasonal-badge {
-  background-color: var(--badge-seasonal);
-}
-
-/* Link Styles */
-.connect-link {
-  color: var(--primary-color);
-  text-decoration: none;
-  margin-right: 1rem;
-  display: inline-flex;
+  font-weight: 300;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+  display: flex;
   align-items: center;
-  transition: color 0.2s ease;
+  gap: 0.5rem;
+  pointer-events: auto;
 }
 
-.connect-link:hover {
-  color: #2a5ca3;
-  text-decoration: none;
+.contact-link:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
 }
 
-/* Utility Classes */
-.text-muted {
-  color: var(--text-secondary) !important;
+.link-icon {
+  font-size: 1rem;
 }
 
-.section-divider {
+.link-text {
+  position: relative;
+}
+
+.link-text::after {
+  content: '';
+  position: absolute;
+  width: 0;
   height: 1px;
-  background-color: var(--border-color);
-  margin: 1rem 0;
+  bottom: -2px;
+  left: 0;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
 }
 
-/* Media Queries */
-@media (max-width: 992px) {
-  .container {
-    max-width: 95%;
-  }
-  
-  .card {
-    margin-bottom: 1rem;
-  }
-  
-  .compact-card-body {
-    padding: 1rem;
-  }
+.contact-link:hover .link-text::after {
+  width: 100%;
+}
+
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.cursor::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.contact-link:hover ~ .cursor,
+.game-canvas:hover ~ .cursor {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(114, 137, 218, 0.1);
+  border-color: rgba(114, 137, 218, 0.5);
+  mix-blend-mode: normal;
 }
 
 @media (max-width: 768px) {
-  .header-section {
-    padding: 1.5rem 0;
+  .name {
+    font-size: 2.5rem;
   }
-
-  .profile-title {
-    font-size: 2rem;
+  
+  .title {
+    font-size: 0.9rem;
   }
-
-  .profile-subtitle {
-    font-size: 1rem;
+  
+  body, html {
+    cursor: auto;
   }
-
-  .card-body {
-    padding: 1rem;
+  
+  .cursor {
+    display: none;
+  }
+  
+  .contact-links {
+    gap: 1rem;
+    bottom: 1.5rem;
   }
 }
