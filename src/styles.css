@@ -193,23 +193,48 @@ body, html {
 
 /* Mobile Styles */
 @media (max-width: 768px) {
+  /* Main container adjustments */
+  .app {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 15vh;
+    align-items: center;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .center-content {
+    order: 1;
+    width: 100%;
+    padding: 0 20px;
+  }
+
   .name {
     font-size: 2.5rem;
+    margin-bottom: 0.5rem;
   }
   
   .title {
     font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
 
+  /* Contact links - horizontal row BELOW text */
   .contact-links {
+    order: 2;
     position: relative;
-    bottom: auto;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+    display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 1.5rem;
+    margin: 2rem 0;
     padding: 0 1rem;
+    width: 100%;
+    transform: none;
+    top: auto;
+    bottom: auto;
+    left: auto;
   }
 
   .contact-link {
@@ -218,11 +243,33 @@ body, html {
     padding: 8px 12px;
   }
 
-  body, html {
-    cursor: auto;
-  }
-  
+@media (max-width: 768px) and (pointer: fine) {
+  /* Only show cursor for devices that actually use one (like tablets with stylus) */
   .cursor {
-    display: none;
+    display: block;
+  }
+}
+}
+/* Add to your existing CSS */
+.score-display {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  z-index: 100;
+  font-weight: 500;
+}
+
+/* Mobile version */
+@media (max-width: 768px) {
+  .score-display {
+    font-size: 1.2rem;
+    padding: 6px 12px;
+    top: 15px;
+    right: 15px;
   }
 }

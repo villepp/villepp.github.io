@@ -4,6 +4,7 @@ import "./styles.css";
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
   const [circles, setCircles] = useState([]);
+  const [score, setScore] = useState(0);
   
   const containerRef = useRef(null);
   const nameRef = useRef(null);
@@ -12,21 +13,30 @@ function App() {
   const canvasRef = useRef(null);
   const animationFrameRef = useRef(null);
   const gameIntervalRef = useRef(null);
-  const lastSpawnTimeRef = useRef(0);
+  const lastSpawnTimeRef = useRef(0); // Added missing ref
   
   const colors = useMemo(() => ['#ff66ab', '#66ccff', '#ff6666', '#88b300'], []);
   const spawnInterval = 2000;
   const maxCircles = 3;
 
-  // Get safe area bounds (avoid spawning over text)
-  const getSafeArea = useMemo(() => {
+  const createCircle = useMemo(() => () => {
+    if (!canvasRef.current) return null;
+    
+    const canvas = canvasRef.current;
+    const size = Math.random() * 20 + 40;
+    
     return {
-      top: 0.3,    // 30% from top
-      bottom: 0.8, // 80% from top
-      left: 0.1,   // 10% from left
-      right: 0.9   // 90% from left
+      id: Date.now() + Math.random(),
+      x: Math.random() * (canvas.width - size) + size/2,
+      y: Math.random() * (canvas.height - size) + size/2,
+      size: size,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      createdAt: Date.now(),
+      lifespan: 3000,
+      clicked: false,
+      clickedAt: null
     };
-  }, []);
+  }, [colors]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -43,14 +53,12 @@ function App() {
 
     window.addEventListener("mousemove", handleMouseMove);
     
-    // Initial animations
     setTimeout(() => {
       if (nameRef.current && titleRef.current) {
         nameRef.current.classList.add('revealed');
         setTimeout(() => {
           titleRef.current.classList.add('revealed');
           
-          // Start circle spawning
           const startGame = () => {
             const now = Date.now();
             if (circles.length < maxCircles && now - lastSpawnTimeRef.current > spawnInterval) {
@@ -69,13 +77,52 @@ function App() {
       clearInterval(gameIntervalRef.current);
       cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [colors, circles.length]);
+  }, [colors, circles.length, createCircle]);
+
+  const handleCanvasClick = (e) => {
+    if (!canvasRef.current) return;
+    
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const now = Date.now();
+    
+    setCircles(prev => {
+      let hitCircle = false;
+      const newCircles = prev.map(circle => {
+        if (circle.clicked || (now - circle.createdAt) > circle.lifespan) {
+          return circle;
+        }
+        
+        const distance = Math.sqrt(
+          Math.pow(x - circle.x, 2) + 
+          Math.pow(y - circle.y, 2)
+        );
+        
+        if (distance <= circle.size / 2) {
+          hitCircle = true;
+          setScore(prevScore => prevScore + 10);
+          return { 
+            ...circle, 
+            clicked: true,
+            clickedAt: now
+          };
+        }
+        
+        return circle;
+      });
+      
+      return hitCircle ? newCircles : prev;
+    });
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
+    
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const now = Date.now();
@@ -84,7 +131,6 @@ function App() {
         const elapsed = now - circle.createdAt;
         const progress = Math.min(1, elapsed / circle.lifespan);
         
-        // Approach circle
         if (!circle.clicked) {
           const approachSize = circle.size * (2.5 - progress * 1.5);
           ctx.beginPath();
@@ -94,7 +140,6 @@ function App() {
           ctx.stroke();
         }
         
-        // Main circle with click effect
         ctx.save();
         if (circle.clicked) {
           const clickProgress = Math.min(1, (now - circle.clickedAt) / 500);
@@ -152,66 +197,6 @@ function App() {
     return () => clearInterval(cleanupInterval);
   }, []);
 
-  const createCircle = () => {
-    if (!canvasRef.current) return;
-    
-    const canvas = canvasRef.current;
-    const size = Math.random() * 20 + 40;
-    
-    // Calculate position within safe area
-    const x = getSafeArea.left + Math.random() * (getSafeArea.right - getSafeArea.left);
-    const y = getSafeArea.top + Math.random() * (getSafeArea.bottom - getSafeArea.top);
-    
-    return {
-      id: Date.now() + Math.random(),
-      x: x * canvas.width,
-      y: y * canvas.height,
-      size: size,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      createdAt: Date.now(),
-      lifespan: 3000,
-      clicked: false,
-      clickedAt: null
-    };
-  };
-
-  const handleCanvasClick = (e) => {
-    if (!canvasRef.current) return;
-    
-    const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const now = Date.now();
-    
-    setCircles(prev => {
-      let hitCircle = false;
-      const newCircles = prev.map(circle => {
-        if (circle.clicked || (now - circle.createdAt) > circle.lifespan) {
-          return circle;
-        }
-        
-        const distance = Math.sqrt(
-          Math.pow(x - circle.x, 2) + 
-          Math.pow(y - circle.y, 2)
-        );
-        
-        if (distance <= circle.size / 2) {
-          hitCircle = true;
-          return { 
-            ...circle, 
-            clicked: true,
-            clickedAt: now
-          };
-        }
-        
-        return circle;
-      });
-      
-      return hitCircle ? newCircles : prev;
-    });
-  };
-
   const backgroundStyle = useMemo(() => ({
     background: `radial-gradient(
       circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%,
@@ -222,6 +207,7 @@ function App() {
 
   return (
     <div className="app" ref={containerRef} style={backgroundStyle}>
+      <div className="score-display">{score}</div>
       <div className="background-dots" />
       <canvas
         ref={canvasRef}
